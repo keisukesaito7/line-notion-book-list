@@ -1,22 +1,21 @@
 require 'notion-ruby-client'
 require './libs/generate_parameter'
+require './libs/const'
 
-# database の property の名前
-AUTHOR_LABEL = '著者'
-STATUS_LABEL = 'Status'
-URL_LABEL = 'URL'
-
+# Notion client
 client = Notion::Client.new(token: ENV['NOTION_INTEGRATION_TOKEN'])
-database_id = ENV['DATABASE_ID']
 
+# param1: parent
+database_id = ENV['DATABASE_ID']
+parent = parent(database_id:,)
+
+# param2: properties
 author_name = "keisuke"
 author_url = 'https://twitter.com/sa20220304'
-
 book_title = "僕の本"
 book_url = 'https://developers.notion.com/reference/property-value-object'
-
-parent = parent(database_id:,)
 properties = properties(author_url:, author_name:, book_title:, book_url:,)
 
+# request create page
 client.create_page(parent:, properties:,)
 
